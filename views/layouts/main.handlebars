@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Goop Scraper</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Materialize CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+        <!-- Materialize Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="/style.css" />
+        <!-- jQuery -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <!-- Materialize JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+        <!-- JS -->
+        <script src="/script.js"></script>
+    </head>
+
+    <body>
+        <!-- Nav Bar -->
+        <nav>
+        <div class="nav-wrapper teal lighten-3">
+            <a href="/" class="brand-logo">Goop Scraper</a>
+            <a href="/" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/">Home</a></li>
+                <li><a href="/saved">Saved Articles</a></li>
+            </ul>
+        </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li><a href="/">Home</a></li>
+            <li><a href="/saved">Saved Articles</a></li>
+        </ul>
+        <!-- Page Content -->
+        {{{body}}}
+    </body>
+</html>

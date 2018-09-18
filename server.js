@@ -37,6 +37,11 @@ mongoose.connect(MONGODB_URI);
 
 // ROUTES
 
+// Renders index page
+app.get("/", function(req, res) {
+    res.render("index");
+});
+
 // Scrapes website and saves data in MongoDB
 app.get("/scrape", function(req, res) {
     request("https://goop.com", function(err, response, html) {
@@ -58,12 +63,12 @@ app.get("/scrape", function(req, res) {
             });
         });
 
-        res.redirect("/");
+        res.redirect("/all");
     });
 });
 
 // Retrieves all of the data from the articles collection in JSON
-app.get("/", function(req, res) {
+app.get("/all", function(req, res) {
     db.articles.find({}, function(err, data) {
         if (err) {
             console.log(err);
