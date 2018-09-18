@@ -3,42 +3,27 @@
   <div class="section">
     <div class="row">
         <!-- Article Cards (with photo) -->
+        {{#each data}}
         <div class="col s12">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img src="https://placehold.it/300x300">
+                    <img src="{{this.photoURL}}">
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h4 class="header"><a href="#">Article Title</a></h4>
-                        <p>This is where the description about the article will go. It will just be a short blurb about this size, I think.</p>
+                        <h4 class="header"><a href="{{this.link}}" target="blank">{{this.title}}</a></h4>
+                        <p>{{this.summary}}</p>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="teal-text text-lighten-3">Add An Article Note</a>
+                        <a data-id="{{this._id}}" class="teal-text text-lighten-3">Add An Article Note</a>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="teal-text text-lighten-3">Remove From Saved</a>
+                        <a data-id="{{this._id}}" class="teal-text text-lighten-3">Remove From Saved</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Article Cards (without photo) -->
-        <div class="col s12">
-            <div class="card horizontal">
-                <div class="card-stacked">
-                    <div class="card-content">
-                        <h4 class="header"><a href="#">Article Title</a></h4>
-                        <p>This is where the description about the article will go. It will just be a short blurb about this size, I think.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#" class="teal-text text-lighten-3">Add An Article Note</a>
-                    </div>
-                    <div class="card-action">
-                        <a href="#" class="teal-text text-lighten-3">Remove From Saved</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{/each}}
       </div>
     </div>
   </div>

@@ -4,10 +4,10 @@
     <div class="container">
       <div class="row center">
         <div class="col s12">
-            <img src="/goop-white.png" id="goop-img">
+            <img src="/photos/goop-white.png" id="goop-img">
             <p class="white-text">
-                <a href="#" class="white-text">Clear Articles</a> | 
-                <a href="#" class="white-text">Scrape New Articles</a>
+                <a href="/scrape" class="waves-effect btn-flat white-text">Scrape New Articles</a> |
+                <a id="clear-btn" class="waves-effect btn-flat white-text">Clear Articles</a>
             </p>
         </div>
       </div>
@@ -19,36 +19,24 @@
   <div class="section">
     <div class="row">
         <!-- Article Cards (with photo) -->
+        {{#each data}}
         <div class="col s12">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img src="https://placehold.it/300x300">
+                    <img src="{{this.photoURL}}">
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
-                        <h4 class="header"><a href="#">Article Title</a></h4>
-                        <p>This is where the description about the article will go. It will just be a short blurb about this size, I think.</p>
+                        <h4 class="header"><a href="{{this.link}}" target="blank">{{this.title}}</a></h4>
+                        <p>{{this.summary}}</p>
                     </div>
                     <div class="card-action">
-                        <a href="#" class="teal-text text-lighten-3">Save Article</a>
+                        <a data-id="{{this._id}}" class="teal-text text-lighten-3">Save Article</a>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Article Cards (without photo) -->
-        <div class="col s12">
-            <div class="card horizontal">
-                <div class="card-stacked">
-                    <div class="card-content">
-                        <h4 class="header"><a href="#">Article Title</a></h4>
-                        <p>This is where the description about the article will go. It will just be a short blurb about this size, I think.</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#" class="teal-text text-lighten-3">Save Article</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {{/each}}
       </div>
     </div>
   </div>

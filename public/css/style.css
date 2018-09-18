@@ -8,7 +8,7 @@ body, html {
 }
 
 #index-banner { 
-    background-image: url("malibu.jpg");
+    background-image: url("../photos/malibu.jpg");
     height: 75%; 
     background-position: center;
     background-repeat: no-repeat;
