@@ -42,6 +42,11 @@ app.get("/", function(req, res) {
     res.render("index");
 });
 
+// Renders saved page
+app.get("/saved", function(req, res) {
+    res.render("saved");
+});
+
 // Scrapes website and saves data in MongoDB
 app.get("/scrape", function(req, res) {
     request("https://goop.com", function(err, response, html) {

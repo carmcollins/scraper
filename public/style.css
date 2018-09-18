@@ -20,6 +20,10 @@ body, html {
     margin-top: 7%;
 }
 
+.header {
+    font-family: 'Libre Baskerville', serif;
+}
+
 @media only screen and (max-width: 1200px) {
     #goop-img {
         margin-top: 10%;
