@@ -6,7 +6,7 @@ var Article = require("../models/article");
 var Comment = require("../models/comment");
 var router = express.Router();
 
-// Scrapes website and saves data in MongoDB
+// Scrapes website and saves data in database
 router.get("/scrape", function(req, res) {
     request("https://goop.com", function(err, response, html) {
         var $ = cheerio.load(html);
@@ -34,7 +34,7 @@ router.get("/scrape", function(req, res) {
     });
 });
 
-// Clears scraped articles
+// Removes scraped articles from database
 router.delete("/clear", function(req, res) {
     Article.remove({}, function(err) {
         if (err) {
@@ -45,9 +45,9 @@ router.delete("/clear", function(req, res) {
     });
 });
 
-// Updates an article in the database once it's saved
+// Updates an article to "saved" in the database
 router.post("/save/:id", function(req, res) {
-    Article.findOneAndUpdate({_id: req.params.id}, {saved: true}, function(err, data) {
+    Article.findOneAndUpdate({_id: req.params.id}, {saved: true}, {new: true}, function(err, data) {
         if (err) {
             console.log(err);
         } else {
@@ -56,80 +56,61 @@ router.post("/save/:id", function(req, res) {
     });
 });
 
-// Gets all the articles in the database
-router.get("/articles", function(req, res) {
-    Article.find({}, function(err, data) {
+// Updates an article to "unsaved" in the database
+router.post("/unsave/:id", function(req, res) {
+    Article.findOneAndUpdate({_id: req.params.id}, {saved: false}, {new: true}, function(err, data) {
         if (err) {
             console.log(err);
         } else {
-            res.json(data);
+            console.log(data);
         }
     });
 });
 
-
-
-// Gets all the saved articles in the database
-router.get("/articles", function(req, res) {
-    Article.find({saved: true}, function(err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(data);
-        }
-    });
-});
-
-// Gets an article by it's ID
+// Gets article comments by ObjectId
 router.get("/articles/:id", function(req, res) {
-    Article.find({
-        _id: mongojs.ObjectId(req.params.id)
-    }).populate("comments", function(err, data) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(data);
-        }
-    });
+    Article.findOne({_id: req.params.id})
+        .populate("comments")
+        .then(function(res) {
+            res.json(res);
+        }).catch(function(err) {
+            res.json(err);
+        });
 });
 
-// Create a new comment
-router.post("/comment/:id", function(req, res) {
-    var newComment = new Comment(req.body);
-
-    newComment.save(function(err, newComment) {
-        if (err) {
-            console.log(err);
-        } else {
-            Article.update({
-                _id: mongojs.ObjectId(req.params.id)
-            }, {$push: {
-                comments: newComment._id
-            }}, function(err, data) {
+// Creates a new comment
+router.post("/add-comment/:id", function(req, res) {
+    Comment.create(req.body)
+        .then(function(data) {
+            Article.findOneAndUpdate({_id: req.params.id}, {$push: {
+                comments: data._id
+            }}, {
+                new: true
+            }, function(err, data) {
                 if (err) {
                     console.log(err);
                 } else {
                     console.log(data);
-                    res.send(data);
                 }
             });
-        }
-    });
+        })
+        .then(function(res) {
+            res.json(res);
+        }).catch(function(err) {
+            res.json(err);
+        });
 });
 
-// Unsave an article
-router.post("/unsave/:id", function(req, res) {
-    Article.update({
-        _id: mongojs.ObjectId(req.params.id)
-    }, {$set: {
-        saved: false
-    }}, function(err, unsaved) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(unsaved);
-        }
-    });
+// Deletes a comment
+router.delete("/delete-comment/:id", function(req, res) {
+    Comment.findOneAndRemove({_id: req.params.id})
+        .exec(function(err, data) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(data);
+            }
+        });
 });
 
 module.exports = router;

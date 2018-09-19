@@ -6,7 +6,9 @@ var router = express.Router();
 
 // Displays index page
 router.get("/", function(req, res) {
-    Article.find({saved: false}, function(err, data) {
+    Article.find({saved: false})
+    .populate("comments")
+    .exec(function(err, data) {
         if (err) {
             console.log(err);
         } else {
@@ -19,7 +21,9 @@ router.get("/", function(req, res) {
 
 // Displays saved page
 router.get("/saved", function(req, res) {
-    Article.find({saved: true}, function(err, data) {
+    Article.find({saved: true})
+    .populate("comments")
+    .exec(function(err, data) {
         if (err) {
             console.log(err);
         } else {

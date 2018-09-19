@@ -1,3 +1,4 @@
+{{#if data}}
 <!-- Container -->
 <div class="container">
   <div class="section">
@@ -7,7 +8,7 @@
         <div class="col s12">
             <div class="card horizontal">
                 <div class="card-image">
-                    <img src="{{this.photoURL}}">
+                    <img src="{{this.photoURL}}" class="article-photo">
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
@@ -15,10 +16,27 @@
                         <p>{{this.summary}}</p>
                     </div>
                     <div class="card-action">
-                        <a data-id="{{this._id}}" class="teal-text text-lighten-3">Add An Article Note</a>
+                        <a data-id="{{this._id}}" class="teal-text text-lighten-3 modal-trigger comment-btn" href="#modal{{this._id}}">Add A Comment</a>
+                        <div id="modal{{this._id}}" class="modal">
+                            <div class="modal-content">
+                                <h5 class="modal-header">{{this.title}}</h5>
+                                {{#each this.comments}}
+                                <hr>
+                                <p>
+                                    {{this.comments}}
+                                    <a class="btn-flat waves-effect waves-light delete-comment-btn" data-id="{{this.id}}" style="float:right!important"><i class="material-icons teal-text text-lighten-3">close</i></a>
+                                </p>
+                                {{/each}}
+                                <div class="input-field">
+                                    <input id="comment-input{{this.id}}" type="text">
+                                    <label for="comment-input">Add A Comment</label>
+                                </div>
+                                <a data-id="{{this._id}}" class="waves-light btn-small add-comment-btn">Add</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-action">
-                        <a data-id="{{this._id}}" class="teal-text text-lighten-3">Remove From Saved</a>
+                        <a data-id="{{this._id}}" class="teal-text text-lighten-3 unsave-btn">Remove From Saved</a>
                     </div>
                 </div>
             </div>
@@ -28,3 +46,6 @@
     </div>
   </div>
 </div>
+{{else}}
+<h5 class="page-notes grey-text center-align">No articles have been saved</h5>
+{{/if}}

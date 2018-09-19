@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 // Create comment schema
 var CommentSchema = new Schema({
-    body: {
+    comments: {
         type: String
     }
 });

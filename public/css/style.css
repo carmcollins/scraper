@@ -20,8 +20,23 @@ body, html {
     margin-top: 7%;
 }
 
+.article-photo {
+    height: 100%;
+    object-fit: cover;
+}
+
 .header {
     font-family: 'Libre Baskerville', serif;
+}
+
+.modal-header {
+    font-family: 'Libre Baskerville', serif;
+    color: #039be5;
+}
+
+.page-notes {
+    font-family: 'Libre Baskerville', serif;
+    margin-top: 50px;
 }
 
 @media only screen and (max-width: 1200px) {
